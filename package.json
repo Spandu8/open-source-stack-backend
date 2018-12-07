@@ -1,0 +1,27 @@
+{
+  "name": "open-source-stack-backend",
+  "version": "0.1.0",
+  "description": "Backend for open source stack",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/KarrthikReddyChinasani/open-source-stack-backend.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/KarrthikReddyChinasani/open-source-stack-backend/issues"
+  },
+  "homepage": "https://github.com/KarrthikReddyChinasani/open-source-stack-backend#readme",
+  "dependencies": {
+    "body-parser": "^1.18.3",
+    "express": "^4.16.4",
+    "mongoose": "^5.3.15",
+    "consign": "^0.1.6",
+    "cors": "^2.8.4",
+    "lodash": "^4.17.11"
+  }
+}
