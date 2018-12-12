@@ -1,5 +1,7 @@
 var mongoose = require('mongoose');
 const Schema = mongoose.Schema;
+// var bcrypt = require('bcrypt');
+
 
 var registrationSchema = new Schema({
     firstName: {
@@ -27,5 +29,16 @@ var registrationSchema = new Schema({
         default: Date.now
     }
 });
+
+// registrationSchema.pre('save', (next) => {
+//   var user = this;
+//   bcrypt.hash(user.password, (err, hash) => {
+//     if (err) {
+//       return next(err);
+//     }
+//     user.password = hash;
+//     next();
+//   })
+// });
 
 module.exports = mongoose.model('Registration', registrationSchema);
