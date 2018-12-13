@@ -11,7 +11,6 @@ exports.registerUser =  (req,res) => {
           message: "User Registered Successfully",
           data: data
         })
-        .catch(err => {
           res.status(400).send("unable to save to database");
         })
       })
@@ -49,7 +48,6 @@ function validateUserName(userName, password){
       }
     })
     .catch(err => {
-      console.log("error")
       return reject(err);
     })
   })
@@ -79,7 +77,6 @@ function getAuthenticatedResponse(user){
   data.lastName = userData.lastName;
   data.id= userData.id;
   data.token = authenticate(userData);
-console.log(data,'data');
   return data;
 }
 
