@@ -11,6 +11,7 @@ exports.registerUser =  (req,res) => {
           message: "User Registered Successfully",
           data: data
         })
+        .catch(err => {
           res.status(400).send("unable to save to database");
         })
       })
@@ -48,6 +49,7 @@ function validateUserName(userName, password){
       }
     })
     .catch(err => {
+      console.log("error")
       return reject(err);
     })
   })
@@ -55,7 +57,6 @@ function validateUserName(userName, password){
 
 function authenticateUser(user, password){
   return new Promise((resolve, reject) => {
-    console.log("user", password, user.password)
     if(password != user.password){
       return reject({
         code: 403,
