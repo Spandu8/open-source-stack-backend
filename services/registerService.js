@@ -23,7 +23,6 @@ function registerUser(user){
   return new Promise((resolve, reject) => {
     verifyUserNameExist(user).then(user => {
       const registration = new Registration(user);
-      console.log(user,'usersss')
       registration.save()
           .then(data => {
               return resolve({
@@ -44,9 +43,8 @@ function registerUser(user){
 
 function validateUserName(userName, password){
   return new Promise ((resolve, reject) => {
-    Registration.find({ $or: [ { userName: userName }, { email: userName } ] } )
+    Registration.findOne({ $or: [ { userName: userName }, { email: userName } ] } )
     .then(user => {
-      console.log("user", user)
       if(user){
         authenticateUser(user, password)
         .then((user) => {
@@ -90,7 +88,8 @@ function getAuthenticatedResponse(user){
   data.userName = userData.userName;
   data.firstName = userData.firstName;
   data.lastName = userData.lastName;
-  data.id= userData.id;
+  data.id = userData.id;
+  data.email = userData.email;
   data.token = authenticate(userData);
   return data;
 }
@@ -111,9 +110,31 @@ function authenticate(userData) {
   return jwt.sign(payload, secret, options);
 }
 
+function getUserDetails(id){
+  return new Promise((resolve, reject) => {
+    Registration.findOne({_id: id}).then(user => {
+        return resolve(userDetails(user));
+    })
+    .catch(err => {
+      return reject(err);
+    })
+  })
+}
+
+function userDetails(user){
+    var data = {};
+    data.userName = user.userName;
+    data.firstName = user.firstName;
+    data.lastName = user.lastName;
+    data.email = user.email;
+    data.id = user.id;
+    data.create_date = user.create_date;
+    return data;
+}
 
 module.exports = {
   registerUser,
   verifyUserNameExist,
-  validateUserName
+  validateUserName,
+  getUserDetails
 }

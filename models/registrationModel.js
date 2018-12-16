@@ -23,11 +23,7 @@ var registrationSchema = new Schema({
     password: {
         type: String,
         required: true
-    },
-    confirmPassword: {
-        type: String,
-        required: true
-    },
+    },  
     create_date: {
         type: Date,
         default: Date.now

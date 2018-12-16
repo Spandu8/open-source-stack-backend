@@ -11,10 +11,16 @@ exports.registerUser =  (req,res) => {
 
 exports.login = (req,res) => {
   registration_Service.validateUserName(req.body.userName, req.body.password).then(user => {
-    res.send({
-      message: "Login Success",
-      data: user
-    })
+    res.send(user);
+  })
+  .catch(err => {
+    res.send(err);
+  })
+}
+
+exports.getUser = (req,res) => {
+  registration_Service.getUserDetails(req.params.id).then(result => {
+    res.send(result);
   })
   .catch(err => {
     res.send(err);
