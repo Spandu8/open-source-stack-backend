@@ -1,6 +1,7 @@
 const registration_Service = require("../services/registerService");
 
-exports.registerUser =  (req,res) => {
+exports.registerUser = (req,res) => {
+  console.log(req);
     registration_Service.registerUser(req.body).then(result => {
         res.send(result);
     })

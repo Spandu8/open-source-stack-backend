@@ -1,7 +1,5 @@
 var mongoose = require('mongoose');
 const Schema = mongoose.Schema;
-// var bcrypt = require('bcrypt');
-
 
 var registrationSchema = new Schema({
     firstName: {
@@ -24,10 +22,6 @@ var registrationSchema = new Schema({
         type: String,
         required: true
     },
-    confirmPassword: {
-        type: String,
-        required: true
-    },
     create_date: {
         type: Date,
         default: Date.now
@@ -47,4 +41,4 @@ var registrationSchema = new Schema({
 
 
 
-module.exports = mongoose.model('Registration', registrationSchema);
+module.exports = mongoose.model('users', registrationSchema);
