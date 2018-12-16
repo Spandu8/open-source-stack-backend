@@ -27,7 +27,7 @@ var registrationSchema = new Schema({
     confirmPassword: {
         type: String,
         required: true
-    }
+    },
     create_date: {
         type: Date,
         default: Date.now
@@ -44,5 +44,7 @@ var registrationSchema = new Schema({
 //     next();
 //   })
 // });
+
+
 
 module.exports = mongoose.model('Registration', registrationSchema);
