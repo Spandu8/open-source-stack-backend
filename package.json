@@ -17,9 +17,11 @@
   },
   "homepage": "https://github.com/KarrthikReddyChinasani/open-source-stack-backend#readme",
   "dependencies": {
+    "bcrypt": "^3.0.2",
     "body-parser": "^1.18.3",
     "consign": "^0.1.6",
     "cors": "^2.8.4",
+    "dotenv": "^6.2.0",
     "express": "^4.16.4",
     "jsonwebtoken": "^8.4.0",
     "lodash": "^4.17.11",
