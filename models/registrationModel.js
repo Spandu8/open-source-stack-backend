@@ -25,6 +25,10 @@ var registrationSchema = new Schema({
     create_date: {
         type: Date,
         default: Date.now
+    },
+    isEmailVerfied: {
+        type: Boolean,
+        default: false
     }
 });
 
