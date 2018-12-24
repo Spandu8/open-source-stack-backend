@@ -1,5 +1,10 @@
 const express = require('express');
 const consign = require('consign');
+const https = require("https");
+const fs = require("fs");
+
+var privateKey = fs.readFileSync( './ssl/oss-key.pem' );
+var certificate = fs.readFileSync( './ssl/oss-cert.pem' );
 
 const app = express();
 
@@ -18,4 +23,7 @@ const app = express();
     mongoose.connect('mongodb://localhost:27017/OSS');
     var db = mongoose.connection;
 
-    app.listen(3401);
+    https.createServer({
+        key: privateKey,
+        cert: certificate
+    }, app).listen(3401);
