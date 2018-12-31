@@ -172,7 +172,7 @@ function userDetails(user) {
 
 function generateMailerOptions(email, id, host) {
   var mailerOptions = {};
-  link = "http://" + host + "/api/verify/" + id;
+  link = "https://" + host + "/api/verify/" + id;
   mailerOptions = {
     from: "opensourcestack.OSS@gmail.com",
     to: email,
