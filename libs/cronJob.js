@@ -99,36 +99,29 @@ async function startGithubPopularTopicsScrapping(){
   const browser = await puppeteer.launch();
   const page = await browser.newPage();
   await page.goto("https://github.com/topics");
-  // await page.waitFor(2 * 1000);
+  await page.waitFor(5 * 1000);
 
   var itemList1 = await page.evaluate(sel => {
-  return document.getElementsByTagName(sel)[12].getElementsByTagName("li")
-    .length;
+  return document.querySelector(sel).getElementsByTagName("li").length;
   }, CONSTANTS.LIST_POPULAR_TOPICS_GITHUB);
-
-  await savePopularTopicsData(page, itemList1, 2, browser);
-
-  var itemList2 = await page.evaluate(sel => {
-  return document.getElementsByTagName(sel)[13].getElementsByTagName("li")
-    .length;
-  }, CONSTANTS.LIST_POPULAR_TOPICS_GITHUB);
-
-  await savePopularTopicsData(page, itemList2, 3, browser);
+  console.log("karthik", itemList1);
+  await savePopularTopicsData(page, itemList1);
 
   browser.close();
 }
 
-async function savePopularTopicsData(page, count, pagination, browser) {
-  for (var i = 0; i <= count; i++) {
+async function savePopularTopicsData(page, count) {
+  for (var i = 0; i <=count; i++) {
     var popularTitleSelector = CONSTANTS.LIST_POPULAR_TOPICS_GITHUB_TITLE.replace("INDEX",i);
-    popularTitleSelector = popularTitleSelector.replace("PAGINATION", pagination);
-
     var popularTitle = await page.evaluate(sel => {
       var element = document.querySelector(sel);
-      return element ? element.innerHTML : null;
+      return element ? element.getAttribute("href") : null;
     }, popularTitleSelector);
-
-    githubPopularTopicService.savePopularTopic({"title": popularTitle});
+    if(popularTitle !=  null)
+    {
+      popularTitle = popularTitle.replace("/topics/", '');
+      await githubPopularTopicService.savePopularTopic({"title": popularTitle});
+    }
   }
 }
 
