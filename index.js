@@ -27,6 +27,7 @@ mongoose
   );
 var db = mongoose.connection;
 cron.startTrendingGithubScrapping();
+cron.startGithubPopularTopicsScrapping();
 https
   .createServer(
     {

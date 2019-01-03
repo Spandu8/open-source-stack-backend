@@ -8,4 +8,4 @@ var githubTopics = new Schema({
     }
 });
 
-module.exports = mongoose.model('GITHUB_TOPICS', githubTopics);
+module.exports = mongoose.model('GITHUB_POPULAR_TOPICS', githubTopics);

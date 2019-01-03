@@ -4,8 +4,10 @@ const CONSTANTS = require("../constants");
 const _ = require("lodash");
 const fs = require("fs");
 const githubTopicService = require('./../services/githubTopicsService');
+const githubPopularTopicService = require('./../services/githubPopularTopicsService');
 function initAllCronJobs() {
   getTrendingGITHUB();
+  getPopularGITHUB();
 }
 
 function getTrendingGITHUB() {
@@ -15,8 +17,15 @@ function getTrendingGITHUB() {
   job.start();
 }
 
+function getPopularGITHUB() {
+  const job = new CronJob("*/0 */0 */1 * * *", function() {
+   startGithubPopularTopicsScrapping();
+  });
+  job.start();
+}
+
 async function startTrendingGithubScrapping() {
-    const browser = await puppeteer.launch();
+  const browser = await puppeteer.launch();
   const page = await browser.newPage();
   await page.goto("https://github.com/topics");
   await page.waitFor(2 * 1000);
@@ -34,6 +43,7 @@ async function startTrendingGithubScrapping() {
     return document.getElementsByTagName(sel)[13].getElementsByTagName("li")
       .length;
   }, CONSTANTS.LIST_ITEM_TOPICS_GITHUB);
+
 
   await saveTrendingData(page, itemList2, 3, browser);
 
@@ -83,10 +93,49 @@ async function downloadImage(image, title, browser) {
     } catch(e) {
         console.log(e);
     }
-    
 }
+
+async function startGithubPopularTopicsScrapping(){
+  const browser = await puppeteer.launch();
+  const page = await browser.newPage();
+  await page.goto("https://github.com/topics");
+  // await page.waitFor(2 * 1000);
+
+  var itemList1 = await page.evaluate(sel => {
+  return document.getElementsByTagName(sel)[12].getElementsByTagName("li")
+    .length;
+  }, CONSTANTS.LIST_POPULAR_TOPICS_GITHUB);
+
+  await savePopularTopicsData(page, itemList1, 2, browser);
+
+  var itemList2 = await page.evaluate(sel => {
+  return document.getElementsByTagName(sel)[13].getElementsByTagName("li")
+    .length;
+  }, CONSTANTS.LIST_POPULAR_TOPICS_GITHUB);
+
+  await savePopularTopicsData(page, itemList2, 3, browser);
+
+  browser.close();
+}
+
+async function savePopularTopicsData(page, count, pagination, browser) {
+  for (var i = 0; i <= count; i++) {
+    var popularTitleSelector = CONSTANTS.LIST_POPULAR_TOPICS_GITHUB_TITLE.replace("INDEX",i);
+    popularTitleSelector = popularTitleSelector.replace("PAGINATION", pagination);
+
+    var popularTitle = await page.evaluate(sel => {
+      var element = document.querySelector(sel);
+      return element ? element.innerHTML : null;
+    }, popularTitleSelector);
+
+    githubPopularTopicService.savePopularTopic({"title": popularTitle});
+  }
+}
+
+
 
 module.exports = {
   initAllCronJobs,
-  startTrendingGithubScrapping
+  startTrendingGithubScrapping,
+  startGithubPopularTopicsScrapping
 };
