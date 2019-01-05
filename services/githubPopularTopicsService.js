@@ -5,7 +5,7 @@ async function savePopularTopic(data) {
     if (!isSaved) {
       const topic = new GITHUB_POPULAR_TOPICS(data);
       topic.save().then(res => {
-          console.log("Popular Topic saved")
+          console.log(res,"Popular Topic saved")
       }).catch(err => {
         console.log(err);
       })
@@ -27,6 +27,20 @@ function isTopPopularicSaved(title) {
   });
 }
 
+function getAllPopularTopics(){
+  return new Promise(function(resolve, reject){
+    GITHUB_POPULAR_TOPICS.find().then(topics => {
+      return resolve(topics);
+    }).catch((err) => {
+      return reject({
+        code: 500,
+        message: "INTERNAL SERVER ERROR"
+      })
+    })
+  })
+}
+
 module.exports = {
-  savePopularTopic
+  savePopularTopic,
+  getAllPopularTopics
 };

@@ -117,9 +117,12 @@ async function savePopularTopicsData(page, count) {
       var element = document.querySelector(sel);
       return element ? element.getAttribute("href") : null;
     }, popularTitleSelector);
+    console.log(popularTitle,'popularTitle');
     if(popularTitle !=  null)
     {
       popularTitle = popularTitle.replace("/topics/", '');
+      console.log(popularTitle,'popularTitle 2');
+
       await githubPopularTopicService.savePopularTopic({"title": popularTitle});
     }
   }

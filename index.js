@@ -16,8 +16,12 @@ consign()
 // Including route files
 const register = require("./routes/registrationRoute");
 const emailVerification = require("./routes/verifyEmail");
+const gitHubTopics = require('./routes/gitHubTopics');
+const gitHubPopularTopics = require('./routes/gitHubPopularTopics');
 app.use("/api", register);
 app.use("/api", emailVerification);
+app.use("/api", gitHubTopics);
+app.use("/api", gitHubPopularTopics);
 
 mongoose.Promise = global.Promise;
 mongoose
@@ -36,4 +40,4 @@ https
     },
     app
   )
-  .listen(3401);
+    .listen(3401);
