@@ -104,7 +104,6 @@ async function startGithubPopularTopicsScrapping(){
   var itemList1 = await page.evaluate(sel => {
   return document.querySelector(sel).getElementsByTagName("li").length;
   }, CONSTANTS.LIST_POPULAR_TOPICS_GITHUB);
-  console.log("karthik", itemList1);
   await savePopularTopicsData(page, itemList1);
 
   browser.close();
@@ -117,12 +116,9 @@ async function savePopularTopicsData(page, count) {
       var element = document.querySelector(sel);
       return element ? element.getAttribute("href") : null;
     }, popularTitleSelector);
-    console.log(popularTitle,'popularTitle');
     if(popularTitle !=  null)
     {
       popularTitle = popularTitle.replace("/topics/", '');
-      console.log(popularTitle,'popularTitle 2');
-
       await githubPopularTopicService.savePopularTopic({"title": popularTitle});
     }
   }
