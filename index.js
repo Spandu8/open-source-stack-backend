@@ -17,12 +17,12 @@ consign()
 // Including route files
 const register = require("./routes/registrationRoute");
 const emailVerification = require("./routes/verifyEmail");
-const gitHubTopics = require('./routes/githubTopics');
-// const gitHubPopularTopics = require('./routes/gitHubPopularTopics');
+const gitHubTopics = require('./routes/gitHubTopics');
+const gitHubPopularTopics = require('./routes/gitHubPopularTopics');
 app.use("/api", register);
 app.use("/api", emailVerification);
 app.use("/api", gitHubTopics);
-// app.use("/api", gitHubPopularTopics);
+app.use("/api", gitHubPopularTopics);
 app.use(express.static(publicDir));
 
 mongoose.Promise = global.Promise;
