@@ -28,7 +28,7 @@ function isTopicSaved(title) {
 function getAllTopics(){
   return new Promise(function(resolve, reject){
     GITHUB_TOPICS.find().then(topics => {
-      return resolve(topics);
+        return resolve(topics);
     }).catch((err) => {
       return reject({
         code: 500,
