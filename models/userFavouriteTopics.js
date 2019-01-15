@@ -1,12 +1,8 @@
 var mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
-var githubTopics = new Schema({
-    title: {
-        type: String,
-        required: true
-    },
-    desc: {
+var favouriteTopics = new Schema({
+    topicId: {
         type: String,
         required: true
     },
@@ -19,4 +15,4 @@ var githubTopics = new Schema({
     }
 });
 
-module.exports = mongoose.model('GITHUB_TOPICS', githubTopics);
+module.exports = mongoose.model('FAVOURITE_TOPICS', favouriteTopics);
