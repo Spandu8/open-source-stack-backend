@@ -81,8 +81,9 @@ async function downloadImage(image, title, browser) {
     try {
         if (image != null) {
             var viewSource = await page.goto(image);
+            var viewSourcedata =await viewSource.buffer();
             fs.writeFile(`./public/images/${title}.png`,
-            viewSource.buffer(),
+            viewSourcedata,
               function(err) {
                 if (err) {
                   return console.log(err);
