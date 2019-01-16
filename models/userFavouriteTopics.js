@@ -6,7 +6,7 @@ var favouriteTopics = new Schema({
         type: String,
         required: true
     },
-    like: {
+    isFavourite: {
       type: Boolean,
       default: false
     },
