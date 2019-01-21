@@ -10,7 +10,6 @@ passport.use('local', new localStrategy(function(userName, password, done){
     console.log(user,'users');
     if(user === null)
     {
-      console.log("coming here")
       return done(null, false, {
         errors: "email or username is invalid"
      })
