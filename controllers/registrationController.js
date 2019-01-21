@@ -1,6 +1,7 @@
 const registrationService = require("../services/registerService");
 const bcrypt = require("bcrypt");
 const CONSTS = require("../constants");
+const passport = require("passport");
 
 exports.registerUser = (req, res) => {
   var user = req.body;
@@ -18,16 +19,22 @@ exports.registerUser = (req, res) => {
   });
 };
 
-exports.login = (req, res) => {
+exports.login = (req, res,next) => {
   var host = req.get('host');
-  registrationService
-    .validateUserName(req.body.userName, req.body.password, host)
-    .then(user => {
-      res.send(user);
-    })
-    .catch(err => {
-      res.send(err);
-    });
+  passport.authenticate('local',function(err, user, info){
+    if(user){
+      registrationService
+        .authenticateUser(user, req.body.password, host)
+        .then(user => {
+          res.send(user);
+        })
+        .catch(err => {
+          res.send(err);
+        });
+    }else{
+      res.send(info);
+    }
+  })(req, res,next);
 };
 
 exports.getUser = (req, res) => {
