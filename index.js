@@ -20,11 +20,14 @@ const emailVerification = require("./routes/verifyEmail");
 const gitHubTopics = require('./routes/gitHubTopics');
 const gitHubPopularTopics = require('./routes/gitHubPopularTopics');
 const favouriteTopics = require('./routes/userFavouriteTopics');
+const githubUser = require('./routes/github-user');
 app.use("/api", register);
 app.use("/api", emailVerification);
 app.use("/api", gitHubTopics);
 app.use("/api", gitHubPopularTopics);
 app.use("/api", favouriteTopics);
+app.use("/api", githubUser);
+
 app.use(express.static(publicDir));
 
 mongoose.Promise = global.Promise;
