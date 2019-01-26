@@ -40,6 +40,7 @@ function registerUser(user, host) {
         registration
           .save()
           .then(data => {
+            console.log(data,'data')
             var mailerOptions = generateMailerOptions(
               user.email,
               data._id,
