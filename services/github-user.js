@@ -17,7 +17,7 @@ function setUser(token) {
         function(err, doc) {
           if (err) {
           } else {
-            return resolve(res);
+            return resolve({ res: res, user: doc });
           }
         }
       );
