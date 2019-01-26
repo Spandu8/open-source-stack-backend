@@ -6,12 +6,16 @@ var favouriteTopics = new Schema({
         type: String,
         required: true
     },
-    isFavourite: {
-      type: Boolean,
-      default: false
-    },
     userId: {
       type: String
+    },
+    title: {
+        type: String,
+        required: true
+    },
+    desc: {
+        type: String,
+        required: true
     }
 });
 
