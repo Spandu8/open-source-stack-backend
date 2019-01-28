@@ -9,13 +9,6 @@ var githubTopics = new Schema({
     desc: {
         type: String,
         required: true
-    },
-    like: {
-      type: Boolean,
-      default: false
-    },
-    userId: {
-      type: String
     }
 });
 

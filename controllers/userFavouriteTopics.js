@@ -1,7 +1,7 @@
-const githubTopicsService = require('../services/userFavouriteTopics');
+const userFavouriteTopics = require('../services/userFavouriteTopics');
 
 exports.addToFavourite = (req, res) => {
-  githubTopicsService.addToFavourite(req.body).then(topics => {
+  userFavouriteTopics.addToFavourite(req.body).then(topics => {
     res.send(topics);
   }).catch((err) => {
     res.send(err);
@@ -11,7 +11,7 @@ exports.addToFavourite = (req, res) => {
 
 exports.getFavouriteTopics = (req, res) => {
   let userId = req.query.userId;
-  githubTopicsService.favouriteTopics(userId).then(topics => {
+  userFavouriteTopics.favouriteTopics(userId).then(topics => {
     res.send(topics);
   }).catch((err) => {
     res.send(err);
