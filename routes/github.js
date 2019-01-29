@@ -3,12 +3,13 @@ const express = require("express");
 const router = express.Router();
 
 const gitHubUser = require('../controllers/github-user');
-const gitHubLang = require('../controllers/github-languages');
-const githubTrending = require('../controllers/github-trending');
+const gitHubController = require('../controllers/github');
 
 router.get('/github/user', gitHubUser.getUser);
 router.post('/github/user', gitHubUser.setUser);
-router.get('/github/languages', gitHubLang.getAllLanguages);
-router.get('/github/trending', githubTrending.getTrending);
+router.get('/github/languages', gitHubController.getAllLanguages);
+router.get('/github/trending', gitHubController.getTrending);
+router.get('/github/repositories', gitHubController.getRepositories);
+router.get('/github/getUsersByLanguage', gitHubController.getUsersByLanguage);
 
 module.exports = router;
