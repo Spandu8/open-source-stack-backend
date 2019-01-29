@@ -1,4 +1,5 @@
 const GITHUB_TOPICS = require("../models/githubTopics");
+const request = require("request");
 
 async function saveTopic(data) {
   isTopicSaved(data.title).then(isSaved => {
@@ -38,9 +39,27 @@ function getAllTopics() {
   })
 }
 
-
+function searchTopic(searchQuery) {
+  return new Promise(function(resolve, reject){
+    request.get({
+      "headers": {
+        "User-Agent": "request",
+        "Accept": "application/vnd.github.mercy-preview+json"
+        },
+      "url": 'https://api.github.com/search/topics?q=' + searchQuery
+    }, (error, response, body) => {
+        if (!error && response.statusCode == 200) {
+          console.log(response,'response')
+            return resolve(JSON.parse(body));
+        }else{
+          return reject(error);
+        }
+    })
+  })
+}
 
 module.exports = {
   saveTopic,
-  getAllTopics
+  getAllTopics,
+  searchTopic
 };
