@@ -23,7 +23,7 @@ const emailVerification = require("./routes/verifyEmail");
 const gitHubTopics = require('./routes/gitHubTopics');
 const gitHubPopularTopics = require('./routes/gitHubPopularTopics');
 const favouriteTopics = require('./routes/userFavouriteTopics');
-const githubUser = require('./routes/github-user');
+const githubUser = require('./routes/github');
 
 app.use(bodyParser.urlencoded({
   extended: true

@@ -8,3 +8,12 @@ exports.getGithubTopics = (req, res) => {
       console.log(err)
   })
 }
+
+exports.searchTopic = (req, res) => {
+  console.log(req.query)
+  githubTopicsService.searchTopic(req.query.q).then(searchResults => {
+    res.send(searchResults);
+  }).catch((err) => {
+    res.send(err);
+  })
+}
