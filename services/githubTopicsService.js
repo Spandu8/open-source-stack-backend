@@ -58,6 +58,7 @@ function searchTopic(searchQuery) {
   })
 }
 
+
 module.exports = {
   saveTopic,
   getAllTopics,
