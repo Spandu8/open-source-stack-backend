@@ -9,7 +9,9 @@ async function saveTopic(data) {
 
       });
     }
-  });
+  }).catch((err) => {
+    return reject(err);
+  })
 }
 
 function isTopicSaved(title) {

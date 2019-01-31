@@ -24,7 +24,6 @@
   "homepage": "https://github.com/KarrthikReddyChinasani/open-source-stack-backend#readme",
   "dependencies": {
     "@huchenme/github-trending": "^1.5.2",
-    "bcrypt": "^3.0.2",
     "body-parser": "^1.18.3",
     "consign": "^0.1.6",
     "cors": "^2.8.4",

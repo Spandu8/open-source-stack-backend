@@ -7,7 +7,9 @@ function getLanguages() {
     return new Promise((resolve, reject) => {
         github.fetchAllLanguages().then(languages => {
             return resolve(languages);
-        });
+        }).catch((err) => {
+          return reject(err);
+        })
     });
 }
 
@@ -27,7 +29,9 @@ function getTrending(language, sort, order, token, page) {
     return new Promise((resolve, reject) => {
         rest.getRepos(language, sort, order, token, page).then(repos => {
             return resolve(repos);
-        });
+        }).catch((err) => {
+            return reject(err);
+        })
     });
 }
 

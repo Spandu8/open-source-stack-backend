@@ -2,7 +2,6 @@ const Registration = require("../models/registrationModel");
 var config = require("../config/session");
 var jwt = require("jsonwebtoken");
 var secret = config.secret;
-const bcrypt = require("bcrypt");
 const nodemailer = require("nodemailer");
 const emailRoute = require("../routes/verifyEmail");
 const passport = require("passport");
@@ -28,7 +27,9 @@ function verifyUserNameExist(user) {
       } else {
         return resolve(user);
       }
-    });
+    }).catch((err) => {
+      return reject(err);
+    })
   });
 }
 
@@ -71,17 +72,14 @@ function registerUser(user, host) {
 
 function authenticateUser(user, password, host) {
   return new Promise((resolve, reject) => {
-    bcrypt.compare(password, user.password, function(err, res) {
-      console.log(res,'res')
-      if (res) {
-        return resolve(getAuthenticatedResponse(user, host));
-      } else {
-        return reject({
-          code: 403,
-          message: "Invalid Password"
-        });
-      }
-    });
+    if(password === user.password){
+      return resolve(getAuthenticatedResponse(user, host));
+    } else{
+      return reject({
+        code: 403,
+        message: "Invalid Password"
+      });
+    }
   });
 }
 

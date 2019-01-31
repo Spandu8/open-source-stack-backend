@@ -1,12 +1,8 @@
 const registrationService = require("../services/registerService");
-const bcrypt = require("bcrypt");
 const CONSTS = require("../constants");
 const passport = require("passport");
 
 exports.registerUser = (req, res) => {
-  var user = req.body;
-  bcrypt.hash(user.password, CONSTS.SALT_ROUNDS, function(err, hash) {
-    user.password = hash;
     var host = req.get('host');
     registrationService
       .registerUser(req.body, host)
@@ -16,7 +12,6 @@ exports.registerUser = (req, res) => {
       .catch(err => {
         res.send(err);
       });
-  });
 };
 
 exports.login = (req, res,next) => {
