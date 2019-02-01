@@ -9,7 +9,8 @@
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node index.js"
+    "start": "node index.js",
+    "dev": "nodemon index.js"
   },
   "repository": {
     "type": "git",
@@ -22,10 +23,11 @@
   },
   "homepage": "https://github.com/KarrthikReddyChinasani/open-source-stack-backend#readme",
   "dependencies": {
-    "bcrypt": "^3.0.2",
+    "@huchenme/github-trending": "^1.5.2",
     "body-parser": "^1.18.3",
     "consign": "^0.1.6",
     "cors": "^2.8.4",
+    "cron": "^1.6.0",
     "dotenv": "^6.2.0",
     "express": "^4.16.4",
     "fs": "0.0.1-security",
@@ -34,6 +36,10 @@
     "lodash": "^4.17.11",
     "mongoose": "^5.3.15",
     "nodemailer": "^4.7.0",
-    "nodemon": "^1.18.7"
+    "nodemon": "^1.18.7",
+    "passport": "^0.4.0",
+    "passport-local": "^1.0.0",
+    "puppeteer": "^1.11.0",
+    "request": "^2.88.0"
   }
 }

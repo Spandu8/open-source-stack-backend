@@ -32,17 +32,4 @@ var registrationSchema = new Schema({
     }
 });
 
-// registrationSchema.pre('save', (next) => {
-//   var user = this;
-//   bcrypt.hash(user.password, (err, hash) => {
-//     if (err) {
-//       return next(err);
-//     }
-//     user.password = hash;
-//     next();
-//   })
-// });
-
-
-
 module.exports = mongoose.model('users', registrationSchema);

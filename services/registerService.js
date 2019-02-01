@@ -2,9 +2,9 @@ const Registration = require("../models/registrationModel");
 var config = require("../config/session");
 var jwt = require("jsonwebtoken");
 var secret = config.secret;
-const bcrypt = require("bcrypt");
 const nodemailer = require("nodemailer");
 const emailRoute = require("../routes/verifyEmail");
+const passport = require("passport");
 
 const transporter = nodemailer.createTransport({
   service: "gmail",
@@ -27,7 +27,9 @@ function verifyUserNameExist(user) {
       } else {
         return resolve(user);
       }
-    });
+    }).catch((err) => {
+      return reject(err);
+    })
   });
 }
 
@@ -39,6 +41,7 @@ function registerUser(user, host) {
         registration
           .save()
           .then(data => {
+            console.log(data,'data')
             var mailerOptions = generateMailerOptions(
               user.email,
               data._id,
@@ -67,43 +70,16 @@ function registerUser(user, host) {
   });
 }
 
-function validateUserName(userName, password, host) {
+function authenticateUser(user, password, host) {
   return new Promise((resolve, reject) => {
-    Registration.findOne({ $or: [{ userName: userName }, { email: userName }] })
-      .then(user => {
-        if (user) {
-          authenticateUser(user, password)
-            .then(user => {
-              return resolve(getAuthenticatedResponse(user, host));
-            })
-            .catch(err => {
-              return reject(err);
-            });
-        } else {
-          return reject({
-            message: "Invalid UserName",
-            status: 402
-          });
-        }
-      })
-      .catch(err => {
-        return reject(err);
+    if(password === user.password){
+      return resolve(getAuthenticatedResponse(user, host));
+    } else{
+      return reject({
+        code: 403,
+        message: "Invalid Password"
       });
-  });
-}
-
-function authenticateUser(user, password) {
-  return new Promise((resolve, reject) => {
-    bcrypt.compare(password, user.password, function(err, res) {
-      if (res) {
-        return resolve(user);
-      } else {
-        return reject({
-          code: 403,
-          message: "Invalid Password"
-        });
-      }
-    });
+    }
   });
 }
 
@@ -208,6 +184,6 @@ function sendVerificationMail(mailerOptions) {
 module.exports = {
   registerUser,
   verifyUserNameExist,
-  validateUserName,
+  authenticateUser,
   getUserDetails
 };
